@@ -8,53 +8,151 @@
 
 #import "PodTestViewController.h"
 
+#define TIMER_TICK_PERIOD ( 0.01 )
+
+#define TIMER_COUNTDOWN_PERIOD ( 1 )
+
+#define COUNTDOWN_AMOUNT ( 3 )
+
+@interface PodTestViewController()
+
+@property int ellapseTicks;
+
+@property int countdownRemain;
+
+@property BOOL isCountingdown;
+
+@property (retain, nonatomic) NSTimer* timer;
+
+@property (retain, nonatomic) NSTimer* countdownTimer;
+
+- (void)onTimerFired:(NSTimer*)aTimer;
+
+- (void)onCountdownTimerFired:(NSTimer*)aTimer;
+
+- (void)updateTimeLabel;
+
+- (void)finishCountdown;
+
+@end
+
 @implementation PodTestViewController
 
-- (void)didReceiveMemoryWarning
+@synthesize timeLabel;
+
+@synthesize startButton;
+
+@synthesize countdownRemain;
+
+@synthesize ellapseTicks;
+
+@synthesize timer;
+
+@synthesize countdownTimer;
+
+@synthesize isCountingdown;
+
+- (void)dealloc 
 {
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+    [timeLabel release];
+    [startButton release];
+    [super dealloc];
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
+- (void)viewDidUnload 
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
+    [self setTimeLabel:nil];
+    [self setStartButton:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (IBAction)onStartClicked:(UIButton*)sender 
 {
-    [super viewWillAppear:animated];
+    /*
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:TIMER_TICK_PERIOD
+                                                  target:self
+                                                selector:@selector(onTimerFired:)
+                                                userInfo:nil
+                                                 repeats:YES];
+    */
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (IBAction)onStopClicked:(id)sender 
 {
-    [super viewDidAppear:animated];
+    [self.timer invalidate];
+    self.timer = nil;
+    self.ellapseTicks = 0;
+    [self updateTimeLabel];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (IBAction)OnStartTouchDown:(id)sender 
 {
-	[super viewWillDisappear:animated];
+    NSLog( @"touch down" );
+    
+    
+    if( NO == self.isCountingdown )
+    {
+        self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:TIMER_COUNTDOWN_PERIOD
+                                                               target:self
+                                                            selector:@selector(onCountdownTimerFired:)
+                                                             userInfo:nil
+                                                              repeats:YES];
+    
+        self.countdownRemain = COUNTDOWN_AMOUNT;
+        
+        self.isCountingdown = YES;
+    }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (IBAction)onStartTouchCancel:(id)sender 
 {
-	[super viewDidDisappear:animated];
+    NSLog( @"touch up" );
+    
+    if( 0 == self.countdownRemain )
+    {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:TIMER_TICK_PERIOD
+                                                      target:self
+                                                    selector:@selector(onTimerFired:)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    }
+    else
+    {
+        [self finishCountdown];
+    }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)onTimerFired:(NSTimer*)aTimer
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    self.ellapseTicks++;
+    [self updateTimeLabel];
+}
+
+- (void)onCountdownTimerFired:(NSTimer*)aTimer
+{
+    if( self.countdownRemain > 0 )
+    {
+        self.countdownRemain--;
+        self.startButton.titleLabel.text = [NSString stringWithFormat:@"Start ( %d )", self.countdownRemain];
+    }
+    else
+    {
+        [self finishCountdown];
+    }
+}
+
+- (void)updateTimeLabel
+{
+    double timeEllapseInSecond = self.ellapseTicks * TIMER_TICK_PERIOD;
+    self.timeLabel.text = [NSString stringWithFormat:@"%5.2lf", timeEllapseInSecond];
+}
+
+- (void)finishCountdown
+{
+    [self.countdownTimer invalidate];
+    self.countdownTimer = nil;
+    self.isCountingdown = NO;
+    //self.countdownRemain = COUNTDOWN_AMOUNT;
 }
 
 @end

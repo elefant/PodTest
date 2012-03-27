@@ -22,13 +22,13 @@
 		C57839E815205B74008AD629 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C57839EA15205B74008AD629 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C57839EC15205B74008AD629 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C57839F015205B74008AD629 /* PodTest-Info.plist */ = {isa = PBXFileReference; path = "PodTest-Info.plist"; sourceTree = "<group>"; };
+		C57839F015205B74008AD629 /* PodTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PodTest-Info.plist"; sourceTree = "<group>"; };
 		C57839F215205B74008AD629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C57839F415205B74008AD629 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C57839F615205B74008AD629 /* PodTest-Prefix.pch */ = {isa = PBXFileReference; path = "PodTest-Prefix.pch"; sourceTree = "<group>"; };
-		C57839F715205B74008AD629 /* PodTestAppDelegate.h */ = {isa = PBXFileReference; path = PodTestAppDelegate.h; sourceTree = "<group>"; };
+		C57839F615205B74008AD629 /* PodTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PodTest-Prefix.pch"; sourceTree = "<group>"; };
+		C57839F715205B74008AD629 /* PodTestAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PodTestAppDelegate.h; sourceTree = "<group>"; };
 		C57839F815205B74008AD629 /* PodTestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PodTestAppDelegate.m; sourceTree = "<group>"; };
-		C57839FA15205B74008AD629 /* PodTestViewController.h */ = {isa = PBXFileReference; path = PodTestViewController.h; sourceTree = "<group>"; };
+		C57839FA15205B74008AD629 /* PodTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PodTestViewController.h; sourceTree = "<group>"; };
 		C57839FB15205B74008AD629 /* PodTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PodTestViewController.m; sourceTree = "<group>"; };
 		C57839FE15205B74008AD629 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PodTestViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,6 +237,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PodTest/PodTest-Prefix.pch";
 				INFOPLIST_FILE = "PodTest/PodTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -248,6 +249,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PodTest/PodTest-Prefix.pch";
 				INFOPLIST_FILE = "PodTest/PodTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
